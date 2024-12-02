@@ -3,11 +3,11 @@ kind: Ingress
 metadata:
   name: frontend-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "frontend-static-ip"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # HTTPS 인증서 발급 시
+    kubernetes.io/ingress.global-static-ip-name: "frontend-static-ip" # 고정 IP 이름
+    cert-manager.io/cluster-issuer: "letsencrypt-prod" # HTTPS 인증서 발급 시 사용
 spec:
   rules:
-  - host: your-domain.com  # 구매한 도메인
+  - host: mail-cote.site   # 도메인 이름
     http:
       paths:
       - path: /
@@ -19,5 +19,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - your-domain.com
-    secretName: tls-secret  # HTTPS 인증서 정보
+    - mail-cote.site
+    secretName: mail-cote-tls-secret # HTTPS 인증서 정보

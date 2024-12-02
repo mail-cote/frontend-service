@@ -1,21 +1,26 @@
-apiVersion: apps/v1   # 리소스의 API 버전
-kind: Deployment      # 리소스의 종류
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: frontend-deployment  # Deployment 리소스의 이름
+  name: frontend-service
   labels:
-    app: frontend # 이 Deployment에 할당된 라벨
+    app: frontend-service
 spec:
-  replicas: 1  # Deployment가 생성할 Pod의 수를 정의
+  replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: frontend-service
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend-service
     spec:
       containers:
-      - name: streamlit
-        image: gcr.io/YOUR_PROJECT_ID/frontend-service:latest  # Docker 이미지를 빌드 후 태그
+      - name: frontend-service
+        image: gcr.io/gifted-bongo-442811-h6/frontend-service:latest
         ports:
-        - containerPort: 8501
+        - containerPort: 8501 # Streamlit 포트
+        env:
+        - name: MEMBER_SERVICE_HOST
+          value: "member-service" # member-service의 클러스터 DNS 이름
+        - name: MEMBER_SERVICE_PORT
+          value: "50052"          # member-service의 포트
