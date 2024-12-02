@@ -1,11 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps/v1   # 리소스의 API 버전
+kind: Deployment      # 리소스의 종류
 metadata:
-  name: frontend-deployment
+  name: frontend-deployment  # Deployment 리소스의 이름
   labels:
-    app: frontend
+    app: frontend # 이 Deployment에 할당된 라벨
 spec:
-  replicas: 1
+  replicas: 1  # Deployment가 생성할 Pod의 수를 정의
   selector:
     matchLabels:
       app: frontend
