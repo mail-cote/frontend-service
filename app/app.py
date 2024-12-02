@@ -1,10 +1,4 @@
 import streamlit as st
-import sys
-import os
-
-# Python 검색 경로에 gRPC 파일 경로 추가
-sys.path.append(os.path.abspath("../../member-service/member"))
-
 import grpc
 import member_pb2
 import member_pb2_grpc
