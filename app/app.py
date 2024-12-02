@@ -44,12 +44,13 @@ def update_member(email, old_password, new_level, new_password):
         request = member_pb2.UpdateMemberRequest(
             member_id=member_id,
             level=new_level,
-            password=new_password
+            password=new_password,
+            old_password=old_password  # 기존 비밀번호 추가(대조 위함!)
         )
         response = stub.UpdateMember(request)
         return response.message
     except Exception as e:
-        raise RuntimeError(f"Failed to update member: {e}")
+        raise RuntimeError(f"🚨 이메일 또는 비밀번호가 맞지 않아요.")
 
 
 # 3. DeleteMemberRequest - 회원 삭제
@@ -59,15 +60,18 @@ def delete_member(email, password):
         member_id = get_member_id(email)
         stub = get_grpc_stub()
         request = member_pb2.DeleteMemberRequest(
-            member_id=member_id
+            member_id=member_id,
+            old_password=old_password  # 기존 비밀번호 추가(대조 위함!)
         )
         response = stub.DeleteMember(request)
         return response.message
     except Exception as e:
-        raise RuntimeError(f"Failed to delete member: {e}")
+        raise RuntimeError(f"🚨 이메일 또는 비밀번호가 맞지 않아요.")
 
 
-#################    UI     ##########################
+
+
+######################    UI     ###########################
 
 st.title("Mail-Cote")
 
@@ -118,7 +122,7 @@ with tabs[1]:
                 response = update_member(email, old_password, new_level, new_password)
                 st.success(f"{response}")
             except Exception as e:
-                st.error(f"🚨 Failed to update member: {e}")
+                st.error(f"{e}")
 
 
 # 회원 삭제
@@ -126,11 +130,11 @@ with tabs[2]:
     st.header("구독 해지")
     with st.form("delete_member_form"):
         email = st.text_input("📍 Email")
-        password = st.text_input("📍 Password", type="password")
+        old_password = st.text_input("📍 Password", type="password")
         submitted = st.form_submit_button("해지")
         if submitted:
             try:
-                response = delete_member(email, password)
+                response = delete_member(email, old_password)
                 st.success(f"{response}")
             except Exception as e:
-                st.error(f"🚨 Failed to delete member: {e}")
+                st.error(f"{e}")
