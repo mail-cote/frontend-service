@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "frontend-static-ip"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # HTTPS 인증서 발급 시
+spec:
+  rules:
+  - host: your-domain.com  # 구매한 도메인
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - your-domain.com
+    secretName: tls-secret  # HTTPS 인증서 정보

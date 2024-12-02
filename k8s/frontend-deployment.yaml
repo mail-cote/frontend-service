@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: streamlit
+        image: gcr.io/YOUR_PROJECT_ID/frontend-service:latest  # Docker 이미지를 빌드 후 태그
+        ports:
+        - containerPort: 8501
