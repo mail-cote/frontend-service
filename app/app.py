@@ -78,9 +78,9 @@ tabs = st.tabs(["구독하기", "마이페이지", "구독 해지"])
 with tabs[0]:
     st.header("구독하기")
     with st.form("create_member_form"):
-        email = st.text_input("Email")
-        password = st.text_input("Password")
-        level = st.selectbox("백준 티어 선택", ["Bronze5", "Bronze4", "Bronze3", "Bronze2", "Bronze1", 
+        email = st.text_input("📍 Email")
+        password = st.text_input("📍 Password")
+        level = st.selectbox("📍 구독할 백준 티어", ["Bronze5", "Bronze4", "Bronze3", "Bronze2", "Bronze1", 
                                             "Silver5", "Silver4", "Silver3", "Silver2", "Silver1", 
                                             "Gold5", "Gold4", "Gold3", "Gold2", "Gold1", 
                                             "Platinum5", "Platinum4", "Platinum3", "Platinum2", "Platinum1", 
@@ -102,16 +102,16 @@ with tabs[0]:
 with tabs[1]:
     st.header("마이페이지")
     with st.form("update_member_form"):
-        email = st.text_input("Email")
-        old_password = st.text_input("Old Password", type="password")
-        new_level = st.selectbox("백준 티어 선택", ["Bronze5", "Bronze4", "Bronze3", "Bronze2", "Bronze1", 
+        email = st.text_input("📍 Email")
+        old_password = st.text_input("📍 이전 비밀번호", type="password")
+        new_level = st.selectbox("📍 구독할 백준 티어", ["Bronze5", "Bronze4", "Bronze3", "Bronze2", "Bronze1", 
                                             "Silver5", "Silver4", "Silver3", "Silver2", "Silver1", 
                                             "Gold5", "Gold4", "Gold3", "Gold2", "Gold1", 
                                             "Platinum5", "Platinum4", "Platinum3", "Platinum2", "Platinum1", 
                                             "Diamond5", "Diamond4", "Diamond3", "Diamond2", "Diamond1", 
                                             "Ruby5", "Ruby4", "Ruby3", "Ruby2", "Ruby1"
                                             ])
-        new_password = st.text_input("New Password", type="password")
+        new_password = st.text_input("📍 새 비밀번호", type="password")
         submitted = st.form_submit_button("수정")
         if submitted:
             try:
@@ -125,9 +125,9 @@ with tabs[1]:
 with tabs[2]:
     st.header("구독 해지")
     with st.form("delete_member_form"):
-        email = st.text_input("Email")
-        password = st.text_input("Password", type="password")
-        submitted = st.form_submit_button("Delete")
+        email = st.text_input("📍 Email")
+        password = st.text_input("📍 Password", type="password")
+        submitted = st.form_submit_button("해지")
         if submitted:
             try:
                 response = delete_member(email, password)
