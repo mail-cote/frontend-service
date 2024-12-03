@@ -1,12 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-service
+  name: frontend-service # 서비스 객체 이름
+  namespace: default
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
 spec:
+  type: LoadBalancer
+  loadBalancerIP: 34.64.151.105
   selector:
-    app: frontend-service
+    app: frontend-service # 이 파드를 대상으로 수행
   ports:
-  - protocol: TCP
-    port: 80             # 외부 요청을 받을 포트
-    targetPort: 8501     # 컨테이너 내부 포트
-  type: ClusterIP         # 클러스터 내부 통신
+    - protocol: TCP
+      port: 443
+      targetPort: 8501
