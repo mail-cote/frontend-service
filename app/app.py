@@ -5,7 +5,8 @@ import member_pb2_grpc
 
 # gRPC 서버 연결 함수
 def get_grpc_stub():
-    channel = grpc.insecure_channel("localhost:50052")  # member 서버 포트
+    # 변경된 gRPC 서버 주소: GKE에 맞게 수정
+    channel = grpc.insecure_channel("member-service:50052")  # member 서버 포트
     return member_pb2_grpc.MemberServiceStub(channel)
 
 # GetMemberByEmail - 이메일로 회원 ID 조회
