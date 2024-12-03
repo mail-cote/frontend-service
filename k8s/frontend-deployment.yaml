@@ -16,9 +16,10 @@ spec:
     spec:
       containers:
       - name: frontend-service
-        image: gcr.io/gifted-bongo-442811-h6/frontend-service:latest
+        image: asia-northeast3-docker.pkg.dev/gifted-bongo-442811-h6/frontend-docker-repo/yoonheoz/frontend-service:1.0
         ports:
         - containerPort: 8501 # Streamlit 포트
+        
         env:
         - name: MEMBER_SERVICE_HOST
           value: "member-service" # member-service의 클러스터 DNS 이름

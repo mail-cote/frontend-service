@@ -5,7 +5,7 @@ import member_pb2_grpc
 
 # gRPC 서버 연결 함수
 def get_grpc_stub():
-    channel = grpc.insecure_channel("localhost:50052")  # 서버 포트
+    channel = grpc.insecure_channel("localhost:50052")  # member 서버 포트
     return member_pb2_grpc.MemberServiceStub(channel)
 
 # GetMemberByEmail - 이메일로 회원 ID 조회
@@ -35,6 +35,7 @@ def update_member(email, old_password, new_level, new_password):
         # 이메일로 회원 ID 조회
         member_id = get_member_id(email)
         stub = get_grpc_stub()
+    
         request = member_pb2.UpdateMemberRequest(
             member_id=member_id,
             level=new_level,
