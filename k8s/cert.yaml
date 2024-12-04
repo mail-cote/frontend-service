@@ -4,4 +4,4 @@ metadata:
   name: frontend-ip-cert
 spec:
   domains:
-    - test.lise.co.kr
+    - mail-cote.site
