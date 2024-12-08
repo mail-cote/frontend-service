@@ -2,6 +2,8 @@ import streamlit as st
 import grpc
 import member_pb2
 import member_pb2_grpc
+from PIL import Image
+
 
 # gRPC 서버 연결 함수
 def get_grpc_stub():
@@ -66,17 +68,71 @@ def delete_member(email, password):
 
 
 
-
 ######################    UI     ###########################
 
+# 이미지 불러오기
+pageIcon = Image.open("logo.png")
+man = Image.open("man.png")
+mail = Image.open("mail.png")
+jandi = Image.open("jandi.png")
+
+#Layout
+st.set_page_config(
+    page_title="매일코테 : 코딩테스트 문제 구독 서비스",
+    layout="wide",
+    page_icon=pageIcon,
+    initial_sidebar_state="expanded")
+
+
+#Data Pull and Functions
+st.markdown("""
+<style>
+.big-font {
+    font-size:80px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("Mail-Cote")
+
+
+st.title('🔔 매일코테, 코딩테스트 문제 구독 서비스 🔔')
+st.divider()
+
+
+# 1번째 
+with st.container():
+    col1,col2=st.columns(2)
+    with col1:
+        st.markdown('<h5>하루 한 문제로 꾸준히 성장하는 습관을 만들어보세요.</h5>', unsafe_allow_html=True)
+    with col2:
+        st.image(man)
+
+
+st.divider()
+
+
+with st.container():
+    col1,col2=st.columns(2)
+    with col1:
+        st.image(mail)
+    with col2:
+        st.markdown('<h5>여러분의 실력에 맞는 백준 문제를 매일 7시에 보내드려요.</h5>', unsafe_allow_html=True)
+
+
+st.divider()
+
+st.title('🌱 매일코테로 깃허브 잔디를 빼곡히 채워봐요! 🌱') 
+
+
+
 
 # 탭 UI
 tabs = st.tabs(["구독하기", "마이페이지", "구독 해지"])
 
+
 # 회원 등록
 with tabs[0]:
-    st.header("구독하기")
     with st.form("create_member_form"):
         email = st.text_input("📍 Email")
         password = st.text_input("📍 Password")
@@ -100,7 +156,6 @@ with tabs[0]:
 
 # 회원 정보 수정
 with tabs[1]:
-    st.header("마이페이지")
     with st.form("update_member_form"):
         email = st.text_input("📍 Email")
         old_password = st.text_input("📍 이전 비밀번호", type="password")
@@ -123,7 +178,6 @@ with tabs[1]:
 
 # 회원 삭제
 with tabs[2]:
-    st.header("구독 해지")
     with st.form("delete_member_form"):
         email = st.text_input("📍 Email")
         old_password = st.text_input("📍 Password", type="password")
@@ -134,3 +188,27 @@ with tabs[2]:
                 st.success(f"{response}")
             except Exception as e:
                 st.error(f"{e}")
+
+
+
+# 깃허브 버튼 추가
+st.divider()
+st.markdown(
+    """
+    <a href="https://github.com/mail-cote" target="_blank">
+        <button style="padding:10px 20px; font-size:16px; cursor:pointer;">Mail-Cote Github</button>
+    </a>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# 작은 글씨 추가
+st.markdown("""
+---
+<small>
+Copyright © 2024, 매일코테. All rights reserved.<br>
+이메일 myeunee@khu.ac.kr, plmko0914@gmail.com<br>
+GDGoC KHU 1기 Backend - 송성훈, 허윤지
+</small>
+""", unsafe_allow_html=True)

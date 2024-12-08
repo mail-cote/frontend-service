@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend-service
-        image: asia-northeast3-docker.pkg.dev/gifted-bongo-442811-h6/frontend-docker-repo/yoonheoz/frontend-service:1.1
+        image: asia-northeast3-docker.pkg.dev/gifted-bongo-442811-h6/frontend-docker-repo/yoonheoz/frontend-service:1.4
         ports:
         - containerPort: 8501 # Streamlit 포트
 
